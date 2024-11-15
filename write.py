@@ -7,21 +7,21 @@ import torch
 import pandas as pd
 import copy
 
-
-def count_files_in_directory(directory):
-    count = 0
-    for root, dirs, files in os.walk(directory):
-        count += len(files)
-    return count
     
+path = "/home/wangchangmiao/jinhui/DATA/ICH-DATA/raw_data/"
+ct_path = "/home/wangchangmiao/jinhui/DATA/ICH-DATA/processed_data/"
+good_path = path + "good/"
+bad_path = path + "bad/"
+good_ct_path = ct_path + "good/"
+bad_ct_path = ct_path + "bad/"
 
 content = []
 file_info = []
 pid = 0
-for text in os.listdir("./raw_data/good"):
+for text in os.listdir(good_path):
     pid += 1
     if text != 'desktop.ini':
-        path = f"./processed/good/{pid}.nii.gz"
+        path = good_ct_path + f"{pid}.nii.gz"
         ori_text = text.replace("  "," ")
         text = ori_text.split(' ')
         # print(text)
@@ -51,10 +51,10 @@ for text in os.listdir("./raw_data/good"):
         })
     # f.writelines(good+'#good'+'#\n')
 pid = 0
-for text in os.listdir("./raw_data/bad"):
+for text in os.listdir(bad_path):
     # print("./data/raw_data/bad/" + text)
     pid += 1
-    path = f"./processed/bad/{pid}.nii.gz"
+    path = bad_ct_path + f"{pid}.nii.gz"
     if text != 'desktop.ini':
         ori_text = text.replace("  "," ")
         text = ori_text.split(' ')
@@ -86,7 +86,7 @@ for text in os.listdir("./raw_data/bad"):
         })
 # random.shuffle(file_info)
 df = pd.DataFrame(file_info)
-df.to_excel('./raw_data/example.xls', index=False)
+df.to_excel('./data/table.xls', index=False)
         
 
     
